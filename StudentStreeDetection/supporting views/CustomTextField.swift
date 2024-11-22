@@ -65,3 +65,4 @@ struct AppTextFieldStyle: TextFieldStyle {
 #Preview {
     CustomTextField(text: .constant(""), placeholder: "Placeholder Text")
 }
+

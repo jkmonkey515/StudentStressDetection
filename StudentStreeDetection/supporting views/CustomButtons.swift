@@ -12,13 +12,16 @@ struct CustomButtonView: View {
     var title: String
     var body: some View {
         Text(title)
-            .font(.system(size: 19))
-            .foregroundStyle(Color.white)
-            .tint(Color.blue)
-            .frame(height: 46)
+            .font(.title2)
+            .foregroundColor(.white)
+            .padding()
             .frame(maxWidth: .infinity)
-            .background(Color.blue)
-            .clipShape(RoundedRectangle(cornerRadius: ButtonCornerRadius))
+            .frame(height: 46)
+            .background(LinearGradient(
+                gradient: Gradient(colors: [Color.blue, Color.green]),
+                startPoint: .leading,
+                endPoint: .trailing))
+            .cornerRadius(12)
     }
 }
 
