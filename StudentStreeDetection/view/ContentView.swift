@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject private var globalData: AppGlobalData
+    
     @State private var isAppActive = false
     @State private var size = 0.75
     @State private var opacity = 0.5
@@ -17,7 +19,13 @@ struct ContentView: View {
         Group {
             ZStack {
                 if isAppActive {
-                    MainRootView()
+                    if globalData.isAuthCompleted {
+                        HomeView()
+                            .environmentObject(globalData)
+                    } else {
+                        RegisterView()
+                            .environmentObject(globalData)
+                    }
                 } else {
                     splashView
                 }
@@ -27,10 +35,6 @@ struct ContentView: View {
     
     private var splashView: some View {
         ZStack {
-//            Image("splash.bg")
-//                .resizable()
-//                .scaledToFill()
-//                .ignoresSafeArea()
             Color.cyan.edgesIgnoringSafeArea(.all)
             
             VStack {
@@ -69,5 +73,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView().environmentObject(AppGlobalData())
 }
