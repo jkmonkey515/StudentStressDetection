@@ -1,0 +1,51 @@
+# macOS
+.DS_Store
+
+# Xcode
+DerivedData/
+.idea/
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+
+# Swift Package Manager
+.build/
+Packages/
+Package.resolved
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/*.lock
+
+# Archives
+*.xcarchive
+
+# Provisioning Profiles
+*.mobileprovision
+*.provisionprofile
+
+# Crashlytics
+fabric-api-key.txt
+crashlytics-build.properties
+
+# Bundler
+.bundle/
+
+# Other
+*.mode1v3
+*.pbxuser
+*.swp
+*.swo
+*.TMP
+*.tmp
+*.orig
