@@ -12,7 +12,7 @@ import GoogleSignInSwift
 import AuthenticationServices
 
 struct RegisterView: View {
-    
+    @EnvironmentObject private var globalData: AppGlobalData
     @State private var email: String = ""
     @State private var password: String = ""
     
@@ -26,7 +26,7 @@ struct RegisterView: View {
                 CustomTextField(text: $password, placeholder: "Password")
                 
                 Button {
-                    
+                    globalData.isAuthCompleted = true
                 } label: {
                     CustomButtonView(title: "Register")
                 }
@@ -65,5 +65,5 @@ struct RegisterView: View {
 }
 
 #Preview {
-    RegisterView()
+    RegisterView().environmentObject(AppGlobalData())
 }

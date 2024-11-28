@@ -29,6 +29,7 @@ struct ContentView: View {
                 } else {
                     splashView
                 }
+                splashView
             }
         }
     }
@@ -36,18 +37,25 @@ struct ContentView: View {
     private var splashView: some View {
         ZStack {
             Color.cyan.edgesIgnoringSafeArea(.all)
+            LinearGradient(
+                gradient: Gradient(colors: [Color.lightPurple, Color.lightOrange]),
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+            .ignoresSafeArea()
             
             VStack {
                 VStack {
-                    Image(systemName: "graduationcap.fill")
+//                    Image(systemName: "graduationcap.fill")
+                    Image("logo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 160, height: 160)
                     
-                    Text("Student stress and self-harm detection solution")
-                        .font(.largeTitle)
-                        .padding(.horizontal)
-                        .multilineTextAlignment(.center)
+//                    Text("Student stress and self-harm detection solution")
+//                        .font(.largeTitle)
+//                        .padding(.horizontal)
+//                        .multilineTextAlignment(.center)
                 }
                 .padding()
                 .scaleEffect(size)
