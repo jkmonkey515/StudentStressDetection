@@ -12,13 +12,13 @@ struct CustomButtonView: View {
     var title: String
     var body: some View {
         Text(title)
-            .font(.title2)
+            .font(.system(size: 19, weight: .medium))
             .foregroundColor(.white)
             .padding()
             .frame(maxWidth: .infinity)
             .frame(height: 46)
             .background(LinearGradient(
-                gradient: Gradient(colors: [Color.blue, Color.green]),
+                gradient: Gradient(colors: [Color.lightPurple, Color.lightOrange]),
                 startPoint: .leading,
                 endPoint: .trailing))
             .cornerRadius(12)
@@ -66,12 +66,15 @@ struct AppButtonStyle: PrimitiveButtonStyle {
             configuration.trigger()
         } label: {
             configuration.label
-                .font(.system(size: 19))
+                .font(.system(size: 19, weight: .medium))
                 .foregroundStyle(Color.white)
                 .tint(Color.blue)
                 .frame(height: ButtonHeight)
                 .frame(maxWidth: .infinity)
-                .background(Color.blue)
+                .background(LinearGradient(
+                    gradient: Gradient(colors: [Color.lightPurple, Color.lightOrange]),
+                    startPoint: .leading,
+                    endPoint: .trailing))
                 .clipShape(RoundedRectangle(cornerRadius: ButtonCornerRadius))
                 
         }
@@ -90,7 +93,11 @@ struct AppDisabledButtonStyle: PrimitiveButtonStyle {
                 .tint(Color.gray.opacity(0.8))
                 .frame(height: ButtonHeight)
                 .frame(maxWidth: .infinity)
-                .background(Color.blue.opacity(0.6))
+                .background(LinearGradient(
+                    gradient: Gradient(colors: [Color.lightPurple, Color.lightOrange]),
+                    startPoint: .leading,
+                    endPoint: .trailing))
+                .opacity(0.6)
                 .clipShape(RoundedRectangle(cornerRadius: ButtonCornerRadius))
         }
         .controlSize(.large)
