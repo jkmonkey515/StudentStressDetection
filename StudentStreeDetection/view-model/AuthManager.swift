@@ -45,7 +45,7 @@ final class AuthenticationManager: ObservableObject {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             let user = result.user
             let existingUser = await FirestoreManager.shared.fetchUser(uid: user.uid)
-            if let u = existingUser {
+            if let _ = existingUser {
                 let authUser = AppUser(uid: user.uid, email: user.email)
                 UserData.shared.setUser(authUser)
             } else {
