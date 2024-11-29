@@ -31,12 +31,14 @@ struct PasswordField: View {
                     .foregroundColor(.gray)
             }
         }
-        .padding()
+        .frame(height: 46)
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 2)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.gray, lineWidth: 1)
+                .stroke(Color.gray.opacity(0.8), lineWidth: 1)
         )
-        .padding(.horizontal)
     }
 }
 

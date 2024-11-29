@@ -21,16 +21,12 @@ struct RegisterView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                Color.lightPink.ignoresSafeArea()
-                
-                mainView
-            }
+            mainView
         }
     }
     
     var mainView: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 30) {
             Spacer()
             
             Button{
@@ -39,7 +35,8 @@ struct RegisterView: View {
                 Text("login")
             }
             CustomTextField(text: $email, placeholder: "Email address")
-            CustomTextField(text: $password, placeholder: "Password")
+            
+            PasswordField(password: $password)
             
             if vm.isLoading {
                 LoadingView()
@@ -59,40 +56,44 @@ struct RegisterView: View {
             }
             
             Spacer()
-            // MARK: - google signin
-            GoogleSignInButton {
-                vm.googleSignin()
-            }
-            .onChange(of: vm.googleAuthSuccess) { _, _ in
-                globalData.isAuthCompleted = vm.googleAuthSuccess
-            }
-            .disabled(vm.isLoading)
             
-            // MARK: - apple signiin
-            SignInWithAppleButton(
-                .signIn, // Button type
-                onRequest: { request in
+            
+            HStack(spacing: 30) {
+                Button {
+                    let appleIDProvider = ASAuthorizationAppleIDProvider()
+                    let request = appleIDProvider.createRequest()
                     request.requestedScopes = [.fullName, .email]
                     currentNonce = Utils.shared.randomNonceString()
                     request.nonce = Utils.shared.sha256(currentNonce)
-                },
-                onCompletion: { result in
-                    switch result {
-                    case .success(let authorization):
-                        handleAppleAuthResult(authorization)
-                    case .failure(let error):
-                        print("Sign in with Apple failed: \(error.localizedDescription)")
-                        vm.showingPageAlert = true
-                        vm.pageAlertMessage = "Sign in with Apple failed: The operation couldn’t be completed."
-                    }
+                    
+                    let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+                    authorizationController.delegate = AppleSignInDelegate()
+                    authorizationController.presentationContextProvider = AppleSignInDelegate()
+                    authorizationController.performRequests()
+                }label: {
+                    Image("ic_apple.login")
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 50, height: 50)
                 }
-            )
-            .signInWithAppleButtonStyle(.black)
-            .frame(height: 46)
-            .padding(.bottom, 30)
-            .disabled(vm.isLoading)
+                
+                Button {
+                    vm.googleSignin()
+                }label: {
+                    Image("ic_google.login")
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 50, height: 50)
+                }
+                .onChange(of: vm.googleAuthSuccess) { _, _ in
+                    globalData.isAuthCompleted = vm.googleAuthSuccess
+                }
+                .disabled(vm.isLoading)
+            }
+            .padding(.bottom)
         }
         .padding()
+        .padding(.horizontal)
     }
     
     // MARK: - validation of email and password
@@ -159,4 +160,26 @@ struct RegisterView: View {
 
 #Preview {
     RegisterView().environmentObject(AppGlobalData())
+}
+
+class AppleSignInDelegate: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let userID = appleIDCredential.user
+            let email = appleIDCredential.email
+            let fullName = appleIDCredential.fullName
+            
+            print("User ID: \(userID)")
+            print("Email: \(email ?? "No Email")")
+            print("Full Name: \(fullName?.givenName ?? "No Name")")
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("Authorization failed: \(error.localizedDescription)")
+    }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return UIApplication.shared.windows.first { $0.isKeyWindow }!
+    }
 }

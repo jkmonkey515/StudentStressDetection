@@ -44,7 +44,8 @@ struct CustomTextField: View {
         .padding(.vertical, 2)
         .background(
             RoundedRectangle(cornerRadius: isBorderRectangle ? 10 : 25, style: .continuous)
-                .stroke(Color.gray.opacity(0.8), lineWidth: 1))
+                .stroke(Color.gray.opacity(0.8), lineWidth: 1)
+        )
         .padding(.all, 2)
     }
 }
