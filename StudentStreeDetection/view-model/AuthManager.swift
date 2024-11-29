@@ -43,6 +43,7 @@ final class AuthenticationManager: ObservableObject {
         isLoading = true
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            
             let user = result.user
             let existingUser = await FirestoreManager.shared.fetchUser(uid: user.uid)
             if let _ = existingUser {
@@ -54,7 +55,8 @@ final class AuthenticationManager: ObservableObject {
             }
             isLoading = false
             return true
-        } catch {
+        } catch(let error) {
+            print("email auth failed:", error.localizedDescription)
             isLoading = false
             return false
         }

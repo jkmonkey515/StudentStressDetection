@@ -33,6 +33,11 @@ struct RegisterView: View {
         VStack(spacing: 20) {
             Spacer()
             
+            Button{
+                globalData.isAuthCompleted = true
+            } label: {
+                Text("login")
+            }
             CustomTextField(text: $email, placeholder: "Email address")
             CustomTextField(text: $password, placeholder: "Password")
             
@@ -42,7 +47,7 @@ struct RegisterView: View {
             }
             
             Button {
-                doLogin()
+                doRegister()
             } label: {
                 CustomButtonView(title: "Register")
             }
@@ -95,11 +100,11 @@ struct RegisterView: View {
         !email.isEmpty && !password.isEmpty && !vm.isLoading
     }
     
-    // MARK: - handle email signin
-    func doLogin() {
+    // MARK: - handle email register
+    func doRegister() {
         hideKeyboard()
         Task {
-            let success = await vm.login(email: email, password: password)
+            let success = await vm.createUser(email: email, password: password, name: "")
             withAnimation {
                 globalData.isAuthCompleted = success
             }
