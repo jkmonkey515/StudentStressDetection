@@ -9,29 +9,28 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject private var globalData: AppGlobalData
-    @State private var text: String = ""
-    @State private var currentScore = 0
     
-    let emojis: [String] = ["☹️", "😞", "😑", "😄", "😊"]
+    @State private var level = 0
+    @State private var note: String = ""
+    @State private var isLoading = false
+    
+    
+    let emojis: [String] = ["☹️", "😞", "😑", "😄", "😊"] // ["😢", "😔", "😑", "☺️", "😁"]
     
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack {
-                    Button {
-                        globalData.isAuthCompleted = false
-                    } label: {
-                        Text("log out")
-                    }
+                    
                     HStack {
                         ForEach(0..<5) { index in
                             Button {
-                                currentScore = index + 1
+                                level = index + 1
                             } label: {
                                 Text("\(emojis[index])")
                                     .font(.system(size: 25))
                                     .padding()
-                                    .background(currentScore == (index + 1) ? Color.red : Color.blue)
+                                    .background(level == (index + 1) ? Color.red : Color.blue)
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                             }
                             .padding(.horizontal, 5)
@@ -42,7 +41,7 @@ struct HomeView: View {
                     Text("How are you feeling?")
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    TextEditor(text: $text)
+                    TextEditor(text: $note)
                         .frame(height: 150)
                         .padding(10)
                         .scrollContentBackground(.hidden)
@@ -54,8 +53,16 @@ struct HomeView: View {
                         )
                         .padding(.bottom)
                     
+                    if isLoading {
+                        LoadingView().padding()
+                    }
+                    
                     Button {
-                        
+                        isLoading = true
+                        FirestoreManager.shared.submitDailyFeelings(level: level, note: note)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.isLoading = false
+                        }
                     } label: {
                         CustomButtonView(title: "Submit")
                     }
@@ -68,7 +75,7 @@ struct HomeView: View {
     
     
     var isButtonDisabled: Bool {
-        return currentScore == 0 || text.isEmpty
+        return level == 0 || note.isEmpty
     }
     
 }

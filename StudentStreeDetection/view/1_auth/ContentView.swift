@@ -20,7 +20,7 @@ struct ContentView: View {
             ZStack {
                 if isAppActive {
                     if globalData.isAuthCompleted {
-                        HomeView()
+                        MainTabContentView()
                             .environmentObject(globalData)
                     } else {
                         AuthUserView()

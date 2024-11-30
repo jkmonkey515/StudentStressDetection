@@ -88,20 +88,18 @@ final class FirestoreManager: ObservableObject {
         }
     }
     
-    // MARK: - Tip
-    func submitTip(tip: Double, type: String, note: String) {
+    // MARK: - Submit Daily Feelings
+    // level: 1-5 (saddest - happiest)
+    func submitDailyFeelings(level: Int, note: String) {
         let uid = UserData.shared.getUser().uid
-        let newTipDoc = db.collection("tips").document()
-        newTipDoc.setData([
-            "docId": newTipDoc.documentID,
+        let newDoc = db.collection("daily_feelings").document()
+        newDoc.setData([
+            "docId": newDoc.documentID,
             "uid": uid,
-            "tip": tip,
-            "type": type, // cash, card
+            "level": level,
             "note": note,
             "createdAt": Date()
         ])
-        
-        print("Testing ID: ", newTipDoc.documentID)
     }
 
     

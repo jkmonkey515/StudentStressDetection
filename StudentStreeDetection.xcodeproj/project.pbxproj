@@ -21,7 +21,6 @@
 		569F56E02CEED743004679E9 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F56DF2CEED743004679E9 /* CustomTextField.swift */; };
 		569F56E22CEF35FC004679E9 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F56E12CEF35FC004679E9 /* CustomButtons.swift */; };
 		569F56E52CEF3654004679E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F56E42CEF3654004679E9 /* Constants.swift */; };
-		569F56E72CEFAF20004679E9 /* FeelingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F56E62CEFAF20004679E9 /* FeelingView.swift */; };
 		569F57082CF099C4004679E9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 569F57072CF099C4004679E9 /* FirebaseAuth */; };
 		569F570A2CF099C4004679E9 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 569F57092CF099C4004679E9 /* FirebaseCore */; };
 		569F570C2CF099C4004679E9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 569F570B2CF099C4004679E9 /* FirebaseFirestore */; };
@@ -56,7 +55,6 @@
 		569F56DF2CEED743004679E9 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		569F56E12CEF35FC004679E9 /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		569F56E42CEF3654004679E9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		569F56E62CEFAF20004679E9 /* FeelingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingView.swift; sourceTree = "<group>"; };
 		569F57122CF09E10004679E9 /* AppGlobalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobalData.swift; sourceTree = "<group>"; };
 		569F57142CF0A00E004679E9 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		569F57162CF0ACAC004679E9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -104,7 +102,6 @@
 				569F56DC2CEED552004679E9 /* HomeView.swift */,
 				569F571D2CF0C0F0004679E9 /* StatisticsView.swift */,
 				569F57162CF0ACAC004679E9 /* SettingsView.swift */,
-				569F56E62CEFAF20004679E9 /* FeelingView.swift */,
 			);
 			path = 2_main;
 			sourceTree = "<group>";
@@ -308,7 +305,6 @@
 				569F571A2CF0AE8D004679E9 /* Date+Ex.swift in Sources */,
 				569F56E22CEF35FC004679E9 /* CustomButtons.swift in Sources */,
 				6A5310AD2CF8A37A00D325CF /* LoadingView.swift in Sources */,
-				569F56E72CEFAF20004679E9 /* FeelingView.swift in Sources */,
 				564038BB2CFB296F0058731C /* AuthUserView.swift in Sources */,
 				569F56E52CEF3654004679E9 /* Constants.swift in Sources */,
 				6ADE2DDB2CFA06CE00AEBE41 /* PasswordField.swift in Sources */,
@@ -460,6 +456,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -491,6 +488,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

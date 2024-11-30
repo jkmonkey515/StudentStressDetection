@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject private var globalData: AppGlobalData
     @State private var isDailyNotification: Bool = false
     @State private var selectedTime = Date()
     
@@ -42,6 +43,11 @@ struct SettingsView: View {
                 }
                 
                 Spacer()
+                
+                CustomButton(title: "Log out") {
+                    globalData.isAuthCompleted = false
+                }
+                .padding()
             }
             .padding()
             .navigationTitle("Settings")

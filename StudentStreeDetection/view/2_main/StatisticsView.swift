@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct StatisticsView: View {
+    @EnvironmentObject private var globalData: AppGlobalData
     var body: some View {
         NavigationStack {
             VStack {
