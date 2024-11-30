@@ -10,6 +10,9 @@
 		564038A42CF85EFF0058731C /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564038A32CF85EFA0058731C /* AuthManager.swift */; };
 		564038A62CF860D10058731C /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564038A52CF860C80058731C /* FirestoreManager.swift */; };
 		564038A82CF873100058731C /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564038A72CF873030058731C /* UserData.swift */; };
+		564038B92CFB28390058731C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564038B82CFB28360058731C /* Enums.swift */; };
+		564038BB2CFB296F0058731C /* AuthUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564038BA2CFB296F0058731C /* AuthUserView.swift */; };
+		564038BD2CFB2C7E0058731C /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564038BC2CFB2C7E0058731C /* ResetPasswordView.swift */; };
 		569F56D52CEECB6B004679E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F56D22CEECB6B004679E9 /* ContentView.swift */; };
 		569F56D62CEECB6B004679E9 /* StudentStreeDetectionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F56D32CEECB6B004679E9 /* StudentStreeDetectionApp.swift */; };
 		569F56D72CEECB6B004679E9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 569F56CF2CEECB6B004679E9 /* Preview Assets.xcassets */; };
@@ -19,7 +22,6 @@
 		569F56E22CEF35FC004679E9 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F56E12CEF35FC004679E9 /* CustomButtons.swift */; };
 		569F56E52CEF3654004679E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F56E42CEF3654004679E9 /* Constants.swift */; };
 		569F56E72CEFAF20004679E9 /* FeelingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F56E62CEFAF20004679E9 /* FeelingView.swift */; };
-		569F57052CF09839004679E9 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F57042CF09839004679E9 /* RegisterView.swift */; };
 		569F57082CF099C4004679E9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 569F57072CF099C4004679E9 /* FirebaseAuth */; };
 		569F570A2CF099C4004679E9 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 569F57092CF099C4004679E9 /* FirebaseCore */; };
 		569F570C2CF099C4004679E9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 569F570B2CF099C4004679E9 /* FirebaseFirestore */; };
@@ -35,7 +37,6 @@
 		6A16CB742CF84BEA00880E44 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16CB732CF84BEA00880E44 /* UserModel.swift */; };
 		6A16CB762CF8567E00880E44 /* Color+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16CB752CF8567700880E44 /* Color+Ex.swift */; };
 		6A5310AD2CF8A37A00D325CF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5310AC2CF8A37A00D325CF /* LoadingView.swift */; };
-		6ADE2DD92CF9FF4B00AEBE41 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADE2DD82CF9FF4B00AEBE41 /* LoginView.swift */; };
 		6ADE2DDB2CFA06CE00AEBE41 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADE2DDA2CFA06CE00AEBE41 /* PasswordField.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,9 @@
 		564038A32CF85EFA0058731C /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		564038A52CF860C80058731C /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		564038A72CF873030058731C /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		564038B82CFB28360058731C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		564038BA2CFB296F0058731C /* AuthUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserView.swift; sourceTree = "<group>"; };
+		564038BC2CFB2C7E0058731C /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		569F56BE2CEECB3D004679E9 /* StudentStreeDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentStreeDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		569F56CF2CEECB6B004679E9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		569F56D12CEECB6B004679E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,7 +57,6 @@
 		569F56E12CEF35FC004679E9 /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		569F56E42CEF3654004679E9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		569F56E62CEFAF20004679E9 /* FeelingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingView.swift; sourceTree = "<group>"; };
-		569F57042CF09839004679E9 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		569F57122CF09E10004679E9 /* AppGlobalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobalData.swift; sourceTree = "<group>"; };
 		569F57142CF0A00E004679E9 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		569F57162CF0ACAC004679E9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -66,7 +69,6 @@
 		6A5310AC2CF8A37A00D325CF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6A5310AE2CF8AA4300D325CF /* StudentStreeDetection.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StudentStreeDetection.entitlements; sourceTree = "<group>"; };
 		6ADE2DD62CF9F9A400AEBE41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		6ADE2DD82CF9FF4B00AEBE41 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6ADE2DDA2CFA06CE00AEBE41 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +95,18 @@
 				564038A32CF85EFA0058731C /* AuthManager.swift */,
 			);
 			path = "view-model";
+			sourceTree = "<group>";
+		};
+		564038BE2CFB491D0058731C /* 2_main */ = {
+			isa = PBXGroup;
+			children = (
+				569F571B2CF0C0CF004679E9 /* MainTabContentView.swift */,
+				569F56DC2CEED552004679E9 /* HomeView.swift */,
+				569F571D2CF0C0F0004679E9 /* StatisticsView.swift */,
+				569F57162CF0ACAC004679E9 /* SettingsView.swift */,
+				569F56E62CEFAF20004679E9 /* FeelingView.swift */,
+			);
+			path = 2_main;
 			sourceTree = "<group>";
 		};
 		569F56B52CEECB3D004679E9 = {
@@ -141,12 +155,8 @@
 		569F56DA2CEECB86004679E9 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				564038BE2CFB491D0058731C /* 2_main */,
 				6ADE2DD72CF9FF2A00AEBE41 /* 1_auth */,
-				569F571B2CF0C0CF004679E9 /* MainTabContentView.swift */,
-				569F56DC2CEED552004679E9 /* HomeView.swift */,
-				569F571D2CF0C0F0004679E9 /* StatisticsView.swift */,
-				569F57162CF0ACAC004679E9 /* SettingsView.swift */,
-				569F56E62CEFAF20004679E9 /* FeelingView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -165,6 +175,7 @@
 		569F56E32CEF363D004679E9 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				564038B82CFB28360058731C /* Enums.swift */,
 				564038A72CF873030058731C /* UserData.swift */,
 				569F57142CF0A00E004679E9 /* Utils.swift */,
 				569F57122CF09E10004679E9 /* AppGlobalData.swift */,
@@ -194,8 +205,8 @@
 			isa = PBXGroup;
 			children = (
 				569F56D22CEECB6B004679E9 /* ContentView.swift */,
-				569F57042CF09839004679E9 /* RegisterView.swift */,
-				6ADE2DD82CF9FF4B00AEBE41 /* LoginView.swift */,
+				564038BA2CFB296F0058731C /* AuthUserView.swift */,
+				564038BC2CFB2C7E0058731C /* ResetPasswordView.swift */,
 			);
 			path = 1_auth;
 			sourceTree = "<group>";
@@ -292,17 +303,18 @@
 				569F56D62CEECB6B004679E9 /* StudentStreeDetectionApp.swift in Sources */,
 				564038A62CF860D10058731C /* FirestoreManager.swift in Sources */,
 				564038A42CF85EFF0058731C /* AuthManager.swift in Sources */,
+				564038B92CFB28390058731C /* Enums.swift in Sources */,
 				569F57152CF0A015004679E9 /* Utils.swift in Sources */,
 				569F571A2CF0AE8D004679E9 /* Date+Ex.swift in Sources */,
 				569F56E22CEF35FC004679E9 /* CustomButtons.swift in Sources */,
-				569F57052CF09839004679E9 /* RegisterView.swift in Sources */,
 				6A5310AD2CF8A37A00D325CF /* LoadingView.swift in Sources */,
 				569F56E72CEFAF20004679E9 /* FeelingView.swift in Sources */,
-				6ADE2DD92CF9FF4B00AEBE41 /* LoginView.swift in Sources */,
+				564038BB2CFB296F0058731C /* AuthUserView.swift in Sources */,
 				569F56E52CEF3654004679E9 /* Constants.swift in Sources */,
 				6ADE2DDB2CFA06CE00AEBE41 /* PasswordField.swift in Sources */,
 				564038A82CF873100058731C /* UserData.swift in Sources */,
 				569F57172CF0ACAC004679E9 /* SettingsView.swift in Sources */,
+				564038BD2CFB2C7E0058731C /* ResetPasswordView.swift in Sources */,
 				6A16CB742CF84BEA00880E44 /* UserModel.swift in Sources */,
 				569F571C2CF0C0CF004679E9 /* MainTabContentView.swift in Sources */,
 			);

@@ -10,4 +10,6 @@ import SwiftUI
 @MainActor
 final class AppGlobalData: ObservableObject {
     @AppStorage("authCompleted") var isAuthCompleted: Bool = false
+    
+    @Published var isLoading: Bool = false
 }

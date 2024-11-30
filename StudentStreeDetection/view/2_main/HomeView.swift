@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    
+    @EnvironmentObject private var globalData: AppGlobalData
     @State private var text: String = ""
     @State private var currentScore = 0
     
@@ -18,7 +18,11 @@ struct HomeView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack {
-                    
+                    Button {
+                        globalData.isAuthCompleted = false
+                    } label: {
+                        Text("log out")
+                    }
                     HStack {
                         ForEach(0..<5) { index in
                             Button {

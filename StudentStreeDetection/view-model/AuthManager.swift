@@ -10,23 +10,90 @@ import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
 import SwiftUI
+import AuthenticationServices
 
 @MainActor
-final class AuthenticationManager: ObservableObject {
+final class AuthenticationManager: NSObject, ObservableObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     
     @Published var isLoading = false
     @Published var showingPageAlert = false
     @Published var pageAlertMessage = ""
     @Published var googleAuthSuccess = false
-    @Published var facebookAuthSuccess = false
+    @Published var appleAuthSuccess = false
     
-    // MARK: Register/Login using email with Firebase
+    @Published var currentNonce = ""
+    
+    //MARK: - Apple sign in with Customized button
+    func signInWithAppleFlow() {
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let credential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            var name = ""
+            if let fullname = credential.fullName {
+                if let givenname = fullname.givenName {
+                    name = givenname
+                }
+                if let familyname = fullname.familyName {
+                    name = name + " " + familyname
+                }
+            } else {
+                print("NO name available from Apple.")
+            }
+            guard let data = credential.identityToken, let tokenString = String(data: data, encoding: .utf8) else { return }
+            
+            let firebaseCredential = OAuthProvider.credential(providerID: .apple, idToken: tokenString, rawNonce: currentNonce)
+            Task {
+                do {
+                    let result = try await Auth.auth().signIn(with: firebaseCredential)
+                    let user = result.user
+                    let existingUser = await FirestoreManager.shared.fetchUser(uid: user.uid)
+                    if let _ = existingUser {
+                        let authUser = AppUser(uid: user.uid, email: user.email)
+                        UserData.shared.setUser(authUser)
+                    } else {
+                        let authUser = AppUser(uid: user.uid, email: user.email)
+                        FirestoreManager.shared.createUser(uid: user.uid, name: name, photo: user.photoURL?.absoluteString ?? "")
+                        UserData.shared.setUser(authUser)
+                    }
+                    
+                    appleAuthSuccess = true
+                } catch {
+                    showingPageAlert = true
+                    pageAlertMessage = "Failed to authenticate your credential. Try again later."
+                }
+            }
+            
+        } else {
+            showingPageAlert = true
+            pageAlertMessage = "Something went wrong in doing Apple Sign In."
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        showingPageAlert = true
+        pageAlertMessage = error.localizedDescription
+    }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return UIApplication.shared.windows.first { $0.isKeyWindow } ?? UIWindow()
+    }
+    
+    // MARK: Register/Login using email and password with Firebase
     func createUser(email: String, password: String, name: String) async -> Bool {
         isLoading = true
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             let user = result.user
             let authUser = AppUser(uid: user.uid, name: name, email: user.email)
+            FirestoreManager.shared.createUser(uid: user.uid, name: name, photo: user.photoURL?.absoluteString ?? "")
             UserData.shared.setUser(authUser)
             isLoading = false
             return true
@@ -117,6 +184,21 @@ final class AuthenticationManager: ObservableObject {
                 showingPageAlert = true
                 pageAlertMessage = error.localizedDescription
             }
+        }
+    }
+    
+    // MARK: - reset password: forgot password
+    func resetPassword(email: String) async {
+        do {
+            isLoading = true
+            try await Auth.auth().sendPasswordReset(withEmail: email)
+            isLoading = false
+            showingPageAlert = true
+            pageAlertMessage = "Password reset email sent."
+        } catch {
+            isLoading = false
+            showingPageAlert = true
+            pageAlertMessage = error.localizedDescription
         }
     }
     

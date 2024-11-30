@@ -23,7 +23,7 @@ struct ContentView: View {
                         HomeView()
                             .environmentObject(globalData)
                     } else {
-                        RegisterView()
+                        AuthUserView()
                             .environmentObject(globalData)
                     }
                 } else {
