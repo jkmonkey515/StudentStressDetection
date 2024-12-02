@@ -6,45 +6,47 @@
 //
 
 import SwiftUI
-
-import SwiftUI
 import Charts
 
+struct BarData: Identifiable {
+    let id = UUID()
+    let value: Double
+    let label: String
+    let color: Color
+}
+
 struct CustomBarChartView: View {
-    var stats: [StatsModel]
-    
-    let yAxisValues: [String] = [
-        "Depressed", "Level2", "Level3", "Level4", "Happy"
-    ]
-    
+    let data: [StatsModel]
+    let maxValue: Double = 5
+
     var body: some View {
-        Chart {
-            ForEach(stats, id: \.id) { stat in
-                let averageLevel = calculateAverageLevel(for: stat.listData)
-                BarMark(
-                    x: .value("Start Date", stat.startDate, unit: .day),
-                    y: .value("Average Level", averageLevel)
-                )
-                .foregroundStyle(Color.blue)
-                .annotation(position: .top) {
-                    Text("\(averageLevel, specifier: "%.1f")")
-                        .font(.caption)
-                        .foregroundColor(.blue)
+        ScrollView(.horizontal) {
+            HStack(alignment: .bottom, spacing: 5) {
+                ForEach(data) { oneStatData in
+                    let averageLevel = calculateAverageLevel(for: oneStatData.listData)
+                    VStack {
+                        Text("\(averageLevel, specifier: "%.1f")")
+                            .font(.system(size: 6))
+                            .foregroundColor(.blue)
+                            .rotationEffect(.degrees(-30))
+                            .padding(.bottom, 4)
+                        
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(.lightPurple)
+                            .frame(
+                                width: 25,
+                                height: CGFloat(averageLevel / maxValue) * 200
+                            )
+                        
+                        Text(oneStatData.startDate.toString(format: "MM/dd"))
+                            .lineLimit(1)
+                            .font(.system(size: 6))
+                            .padding(.top, 4)
+                    }
                 }
             }
+            .padding()
         }
-        .alignmentGuide(.leading) { _ in 0 } // Align the chart to the left
-        .chartXAxis {
-            AxisMarks(values: .stride(by: .weekOfYear)) {
-                AxisValueLabel(format: .dateTime.month(.abbreviated).day())
-                AxisTick()
-            }
-        }
-        .chartYAxis {
-            AxisMarks(values: .automatic(desiredCount: 5))
-        }
-        .chartYScale(domain: 0...5)
-        .padding()
     }
     
     private func calculateAverageLevel(for data: [DailyFeelingModel]) -> Double {
@@ -55,6 +57,8 @@ struct CustomBarChartView: View {
 }
 
 #Preview {
-//    CustomBarChartView(stats: [])
-    StatisticsView()
+    let mockData = Utils.shared.loadMockData()
+    let sampleData = Utils.shared.groupDataByInterval(data: mockData, type: .weekly)
+    CustomBarChartView(data: sampleData)
 }
+

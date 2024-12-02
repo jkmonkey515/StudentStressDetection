@@ -8,6 +8,17 @@
 import Foundation
 
 extension Date {
+    /// Converts a `Date` to a `String` with the specified format.
+    /// - Parameter format: The desired date format (e.g., "yyyy-MM-dd HH:mm:ss").
+    /// - Returns: A formatted date `String`.
+    func toString(format: String = "MM/dd/yyyy") -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
+}
+
+extension Date {
     static func getCalculatedDate(value: Int, _ date: Date = Date.now) -> Date {
         return Calendar.current.date(byAdding: .day, value: value, to: date)!
     }
@@ -114,3 +125,4 @@ extension Calendar {
         return numberOfDays.day!
     }
 }
+

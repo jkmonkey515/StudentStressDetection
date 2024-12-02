@@ -28,7 +28,7 @@ struct DailyFeelingModel: Codable {
     }
 }
 
-struct StatsModel: Codable {
+struct StatsModel: Codable, Identifiable {
     var id = UUID()
     var startDate: Date // start day of weekly, monthly, yearly statistics data
     var endDate: Date
