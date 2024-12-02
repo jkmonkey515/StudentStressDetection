@@ -21,3 +21,47 @@ enum AuthPage: String, Codable {
     case login
     case signup
 }
+
+enum FeelingStatus: String, Codable, CaseIterable {
+    case cry
+    case frowning
+    case neutral
+    case relieved
+    case grin
+    
+    var title: String {
+        rawValue.capitalized
+    }
+    var index: Int {
+        FeelingStatus.allCases.firstIndex(of: self) ?? 0
+    }
+
+    var image: String {
+        switch self {
+        case .cry:
+            "1_cry"
+        case .frowning:
+            "2_slightly_frowning_face"
+        case .neutral:
+            "3_neutral_face"
+        case .relieved:
+            "4_relieved"
+        case .grin:
+            "5_grin"
+        }
+    }
+    
+}
+
+enum StatsDateType: String, CaseIterable {
+    case weekly
+    case monthly
+    case yearly
+    
+    var title: String {
+        rawValue.capitalized
+    }
+    var index: Int {
+        StatsDateType.allCases.firstIndex(of: self) ?? 0
+    }
+}

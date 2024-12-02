@@ -17,6 +17,29 @@ final class Utils {
     static let shared = Utils()
     init() {}
     
+    // Helper function to group DailyFeelings by weekly, monthly, and yearly
+    func groupDataByInterval(data: [DailyFeelingModel], type: StatsDateType = .weekly) -> [StatsModel] {
+        var interval: Calendar.Component = .weekOfYear
+        switch type {
+        case .weekly:
+            interval = .weekOfYear
+        case .monthly:
+            interval = .month
+        case .yearly:
+            interval = .year
+        }
+        let calendar = Calendar.current
+        let grouped = Dictionary(grouping: data) { feeling -> Date in
+            let startOfInterval = calendar.dateInterval(of: interval, for: feeling.createdAt)?.start
+            return startOfInterval ?? feeling.createdAt
+        }
+
+        return grouped.map { startDate, feelings in
+            let endDate = calendar.date(byAdding: interval, value: 1, to: startDate)?.addingTimeInterval(-1) ?? startDate
+            return StatsModel(startDate: startDate, endDate: endDate, listData: feelings)
+        }
+    }
+    
     // MARK: - Daily Local Notification as a reminder
     func requestNotificationPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in

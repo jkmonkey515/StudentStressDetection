@@ -77,6 +77,32 @@ extension Date {
         return Calendar(identifier: .iso8601).date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth())!
     }
     
+    func createDateInterval(for range: StatsDateType) -> DateInterval? {
+        let calendar = Calendar.current
+        var startDate: Date?
+        var endDate: Date?
+
+        switch range {
+        case .weekly:
+            startDate = calendar.dateInterval(of: .weekOfYear, for: self)?.start
+            endDate = calendar.dateInterval(of: .weekOfYear, for: self)?.end
+            
+        case .monthly:
+            startDate = calendar.dateInterval(of: .month, for: self)?.start
+            endDate = calendar.dateInterval(of: .month, for: self)?.end
+            
+        case .yearly:
+            startDate = calendar.dateInterval(of: .year, for: self)?.start
+            endDate = calendar.dateInterval(of: .year, for: self)?.end
+        }
+
+        if let start = startDate, let end = endDate {
+            return DateInterval(start: start, end: end.addingTimeInterval(-1)) // End date inclusive
+        }
+
+        return nil
+    }
+    
 }
 
 extension Calendar {
