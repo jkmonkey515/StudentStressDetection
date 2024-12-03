@@ -60,7 +60,10 @@ struct HomeView: View {
                     }
                     
                     Button {
-                        doSubmit()
+//                        doSubmit()
+                        Task {
+                            await submitOpenAI()
+                        }
                     } label: {
                         CustomButtonView(title: "Submit")
                     }
@@ -92,6 +95,12 @@ struct HomeView: View {
         }
         showingPageAlert = true
         pageAlertMessage = "Great! Your daily feeling status is sucessfully updated."
+    }
+    
+    func submitOpenAI() async {
+        isLoading = true
+        await OpenAIManager.shared.sendRequest(leve: (selectedFeelingStatus?.index ?? 0) + 1, note: note)
+        isLoading = false
     }
     
     func cleanData() {

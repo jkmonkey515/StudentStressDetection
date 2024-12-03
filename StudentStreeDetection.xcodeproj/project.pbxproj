@@ -36,7 +36,7 @@
 		6A167A482CFD3A3A00D0816A /* DailyFeelingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A167A472CFD3A3300D0816A /* DailyFeelingModel.swift */; };
 		6A167A4A2CFD4DD900D0816A /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A167A492CFD4DD900D0816A /* CustomPicker.swift */; };
 		6A167A4C2CFD546C00D0816A /* CustomBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A167A4B2CFD546C00D0816A /* CustomBarChartView.swift */; };
-		6A167A512CFEEE2500D0816A /* OpenAIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A167A502CFEEE1E00D0816A /* OpenAIClient.swift */; };
+		6A167A512CFEEE2500D0816A /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A167A502CFEEE1E00D0816A /* OpenAIManager.swift */; };
 		6A16CB742CF84BEA00880E44 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16CB732CF84BEA00880E44 /* UserModel.swift */; };
 		6A16CB762CF8567E00880E44 /* Color+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16CB752CF8567700880E44 /* Color+Ex.swift */; };
 		6A231FC92CFCBC6C007FCFAE /* EmojiItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A231FC82CFCBC6C007FCFAE /* EmojiItemView.swift */; };
@@ -71,7 +71,7 @@
 		6A167A472CFD3A3300D0816A /* DailyFeelingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyFeelingModel.swift; sourceTree = "<group>"; };
 		6A167A492CFD4DD900D0816A /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		6A167A4B2CFD546C00D0816A /* CustomBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChartView.swift; sourceTree = "<group>"; };
-		6A167A502CFEEE1E00D0816A /* OpenAIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIClient.swift; sourceTree = "<group>"; };
+		6A167A502CFEEE1E00D0816A /* OpenAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIManager.swift; sourceTree = "<group>"; };
 		6A16CB732CF84BEA00880E44 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		6A16CB752CF8567700880E44 /* Color+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ex.swift"; sourceTree = "<group>"; };
 		6A231FC82CFCBC6C007FCFAE /* EmojiItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiItemView.swift; sourceTree = "<group>"; };
@@ -101,6 +101,7 @@
 		564038A22CF85EEC0058731C /* view-model */ = {
 			isa = PBXGroup;
 			children = (
+				6A167A502CFEEE1E00D0816A /* OpenAIManager.swift */,
 				564038A52CF860C80058731C /* FirestoreManager.swift */,
 				564038A32CF85EFA0058731C /* AuthManager.swift */,
 			);
@@ -187,7 +188,6 @@
 		569F56E32CEF363D004679E9 /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				6A167A502CFEEE1E00D0816A /* OpenAIClient.swift */,
 				564038B82CFB28360058731C /* Enums.swift */,
 				564038A72CF873030058731C /* UserData.swift */,
 				569F57142CF0A00E004679E9 /* Utils.swift */,
@@ -330,7 +330,7 @@
 				564038A82CF873100058731C /* UserData.swift in Sources */,
 				6A167A482CFD3A3A00D0816A /* DailyFeelingModel.swift in Sources */,
 				569F57172CF0ACAC004679E9 /* SettingsView.swift in Sources */,
-				6A167A512CFEEE2500D0816A /* OpenAIClient.swift in Sources */,
+				6A167A512CFEEE2500D0816A /* OpenAIManager.swift in Sources */,
 				6A167A4A2CFD4DD900D0816A /* CustomPicker.swift in Sources */,
 				564038BD2CFB2C7E0058731C /* ResetPasswordView.swift in Sources */,
 				6A16CB742CF84BEA00880E44 /* UserModel.swift in Sources */,
