@@ -28,13 +28,12 @@ struct HomeView: View {
                                 withAnimation {
                                     selectedFeelingStatus = item
                                 }
-                                
                             } label: {
                                 Image(item.image)
                                     .resizable()
                                     .frame(maxWidth: .infinity)
                                     .aspectRatio(contentMode: .fit)
-                                    .padding(.all, selectedFeelingStatus == item ? 0 : 8)
+                                    .padding(.all, selectedFeelingStatus == item ? 0 : 10)
                             }
                         }
                     }
@@ -60,9 +59,8 @@ struct HomeView: View {
                     }
                     
                     Button {
-//                        doSubmit()
                         Task {
-                            await submitOpenAI()
+                            await doSubmit()
                         }
                     } label: {
                         CustomButtonView(title: "Submit")
@@ -87,20 +85,15 @@ struct HomeView: View {
     }
     
     // MARK: - submit feedling
-    func doSubmit() {
+    func doSubmit() async {
         isLoading = true
-        FirestoreManager.shared.submitDailyFeelings(level: (selectedFeelingStatus?.index ?? 0) + 1, note: note)
+        let aiResult = await OpenAIManager.shared.sendRequest(leve: (selectedFeelingStatus?.index ?? 0) + 1, note: note)
+        FirestoreManager.shared.submitDailyFeelings(level: (selectedFeelingStatus?.index ?? 0) + 1, note: note, levelByAI: aiResult)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isLoading = false
         }
         showingPageAlert = true
         pageAlertMessage = "Great! Your daily feeling status is sucessfully updated."
-    }
-    
-    func submitOpenAI() async {
-        isLoading = true
-        await OpenAIManager.shared.sendRequest(leve: (selectedFeelingStatus?.index ?? 0) + 1, note: note)
-        isLoading = false
     }
     
     func cleanData() {

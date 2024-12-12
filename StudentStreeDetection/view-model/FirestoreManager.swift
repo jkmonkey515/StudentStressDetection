@@ -95,14 +95,15 @@ final class FirestoreManager: ObservableObject {
     
     // MARK: - Submit Daily Feelings
     // level: 1-5 (saddest - happiest)
-    func submitDailyFeelings(level: Int, note: String) {
+    func submitDailyFeelings(level: Int, note: String, levelByAI: Int?) {
         let uid = UserData.shared.getUser().uid
         let newDoc = refDailyFeelings.document()
         newDoc.setData([
             "docId": newDoc.documentID,
             "uid": uid,
-            "level": level,
+            "level": level, // user input stree level
             "note": note,
+            "levelByAI": levelByAI ?? 0,
             "createdAt": Date()
         ])
     }

@@ -17,6 +17,11 @@ public enum StudentStreeDetectionError: Error {
     case invalidImageAlphaInfo
 }
 
+enum BarChartMode: String, Codable {
+    case user
+    case ai
+}
+
 enum AuthPage: String, Codable {
     case login
     case signup

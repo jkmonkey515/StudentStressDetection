@@ -12,6 +12,7 @@ struct DailyFeelingModel: Codable {
     var uid: String
     var level: Int
     var note: String
+    var levelByAI: Int
     var createdAt: Date
     
     var id: String {
@@ -19,13 +20,16 @@ struct DailyFeelingModel: Codable {
     }
 
     // For easier initialization
-    init(docId: String, uid: String, level: Int, note: String, createdAt: Date = Date()) {
+    init(docId: String, uid: String, level: Int, note: String, levelByAI: Int, createdAt: Date = Date()) {
         self.docId = docId
         self.uid = uid
         self.level = level
         self.note = note
+        self.levelByAI = levelByAI
         self.createdAt = createdAt
     }
+    
+    static let `default` = Self(docId: "", uid: "", level: 5, note: "Feeling great!", levelByAI: 1)
 }
 
 struct StatsModel: Codable, Identifiable {

@@ -124,43 +124,6 @@ final class Utils {
     
     
     
-    func loadMockData() -> [DailyFeelingModel] {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-
-        return [
-            DailyFeelingModel(docId: "15", uid: "user1", level: 4, note: "Great start to the year!", createdAt: formatter.date(from: "2023-1-1")!),
-            DailyFeelingModel(docId: "16", uid: "user1", level: 3, note: "Feeling okay", createdAt: formatter.date(from: "2023-1-2")!),
-            DailyFeelingModel(docId: "17", uid: "user1", level: 2, note: "Tired but managing", createdAt: formatter.date(from: "2023-1-3")!),
-            DailyFeelingModel(docId: "18", uid: "user1", level: 1, note: "Challenging day", createdAt: formatter.date(from: "2023-1-4")!),
-            DailyFeelingModel(docId: "19", uid: "user1", level: 3, note: "Average day", createdAt: formatter.date(from: "2023-2-10")!),
-            DailyFeelingModel(docId: "20", uid: "user1", level: 4, note: "Good energy", createdAt: formatter.date(from: "2023-3-15")!),
-            DailyFeelingModel(docId: "21", uid: "user1", level: 5, note: "Best day ever!", createdAt: formatter.date(from: "2023-4-5")!),
-            DailyFeelingModel(docId: "22", uid: "user1", level: 2, note: "Feeling down", createdAt: formatter.date(from: "2023-5-20")!),
-            DailyFeelingModel(docId: "23", uid: "user1", level: 1, note: "Not my day", createdAt: formatter.date(from: "2023-6-14")!),
-            DailyFeelingModel(docId: "24", uid: "user1", level: 4, note: "Doing well", createdAt: formatter.date(from: "2023-7-30")!),
-            DailyFeelingModel(docId: "25", uid: "user1", level: 3, note: "Neutral", createdAt: formatter.date(from: "2023-8-8")!),
-            DailyFeelingModel(docId: "26", uid: "user1", level: 5, note: "Feeling great!", createdAt: formatter.date(from: "2023-9-22")!),
-            DailyFeelingModel(docId: "27", uid: "user1", level: 2, note: "Struggling a bit", createdAt: formatter.date(from: "2023-10-13")!),
-            DailyFeelingModel(docId: "28", uid: "user1", level: 4, note: "Nice day", createdAt: formatter.date(from: "2023-11-4")!),
-            DailyFeelingModel(docId: "29", uid: "user1", level: 3, note: "A fine day", createdAt: formatter.date(from: "2023-12-10")!),
-            DailyFeelingModel(docId: "30", uid: "user1", level: 5, note: "Amazing energy!", createdAt: formatter.date(from: "2023-12-25")!),
-            
-            DailyFeelingModel(docId: "1", uid: "user1", level: 3, note: "Feeling okay", createdAt: formatter.date(from: "2024-1-17")!),
-            DailyFeelingModel(docId: "2", uid: "user1", level: 4, note: "Good day!", createdAt: formatter.date(from: "2024-1-18")!),
-            DailyFeelingModel(docId: "3", uid: "user1", level: 2, note: "Feeling tired", createdAt: formatter.date(from: "2024-1-19")!),
-            DailyFeelingModel(docId: "4", uid: "user1", level: 5, note: "Excellent mood!", createdAt: formatter.date(from: "2024-1-20")!),
-            DailyFeelingModel(docId: "5", uid: "user1", level: 1, note: "Rough day", createdAt: formatter.date(from: "2024-1-21")!),
-            DailyFeelingModel(docId: "6", uid: "user1", level: 3, note: "Feeling neutral", createdAt: formatter.date(from: "2024-1-22")!),
-            DailyFeelingModel(docId: "7", uid: "user1", level: 4, note: "Pretty good", createdAt: formatter.date(from: "2024-1-23")!),
-            DailyFeelingModel(docId: "8", uid: "user1", level: 2, note: "A bit stressed", createdAt: formatter.date(from: "2024-8-24")!),
-            DailyFeelingModel(docId: "9", uid: "user1", level: 5, note: "Feeling awesome!", createdAt: formatter.date(from: "2024-9-25")!),
-            DailyFeelingModel(docId: "10", uid: "user1", level: 3, note: "A calm day", createdAt: formatter.date(from: "2024-7-26")!),
-            DailyFeelingModel(docId: "11", uid: "user1", level: 1, note: "Overwhelmed", createdAt: formatter.date(from: "2024-10-27")!),
-            DailyFeelingModel(docId: "12", uid: "user1", level: 4, note: "Doing well", createdAt: formatter.date(from: "2024-11-28")!),
-            DailyFeelingModel(docId: "13", uid: "user1", level: 3, note: "A decent day", createdAt: formatter.date(from: "2024-11-29")!),
-            DailyFeelingModel(docId: "14", uid: "user1", level: 2, note: "Low energy", createdAt: formatter.date(from: "2024-11-30")!)
-        ]
-    }
+    
     
 }

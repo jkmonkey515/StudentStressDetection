@@ -18,14 +18,17 @@ struct StatisticsView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack {
-                    
                     pickerView
                     
                     CustomBarChartView(data: statsData)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .frame(height: 300)
                     
+                    Text("Analytics by AI")
                     
+                    CustomBarChartView(data: statsData, chartMode: .ai, barColor: .lightOrange)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(height: 300)
                 }
                 .padding()
                 .navigationTitle("Statistics")
@@ -51,7 +54,7 @@ struct StatisticsView: View {
     }
     
     var statsData: [StatsModel] {
-        let data = pageData.isEmpty ? Utils.shared.loadMockData() : pageData
+        let data = pageData
         let result = Utils.shared.groupDataByInterval(data: data, type: currentTab)
         return result
     }

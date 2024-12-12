@@ -28,10 +28,16 @@ struct AuthUserView: View {
             
             PasswordField(password: $password)
             
-            if vm.isLoading {
-                LoadingView()
-                    .padding()
+            if currentPage == .login {
+                NavigationLink {
+                    ResetPasswordView()
+                } label: {
+                    Text("Forgot password?")
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
             }
+            
+            
             
             Button {
                 if currentPage == .signup {
@@ -40,7 +46,24 @@ struct AuthUserView: View {
                     doLogin()
                 }
             } label: {
-                CustomButtonView(title: currentPage == .signup ? "Register" : "Sign in")
+                if vm.isLoading {
+                    HStack {
+                        LoadingView(color: .white)
+                        
+                        Text(currentPage == .signup ? "Signing up..." : "Logging in...")
+                            .font(.system(size: 19, weight: .medium))
+                            .foregroundColor(.white)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 46)
+                    .background(LinearGradient(
+                        gradient: Gradient(colors: [Color.lightPurple, Color.lightOrange]),
+                        startPoint: .leading,
+                        endPoint: .trailing))
+                    .cornerRadius(12)
+                } else {
+                    CustomButtonView(title: currentPage == .signup ? "Register" : "Sign in")
+                }
             }
             .disabled(!isValid)
             .alert("Warning", isPresented: $vm.showingPageAlert) {
@@ -49,15 +72,17 @@ struct AuthUserView: View {
                 Text(vm.pageAlertMessage)
             }
             
-            if currentPage == .login {
-                NavigationLink {
-                    ResetPasswordView()
-                } label: {
-                    Text("Forgot password?")
-                }
-
+            HStack {
+                Text("By signing \(currentPage == .signup ? "up" : "in")")
+                Text("you accept our")
+                Text("Terms of agreement.")
+                    .foregroundColor(.blue)
+                    .underline()
+                    .onTapGesture {
+                        UIApplication.shared.open(URL(string: "https://apple.com")!)
+                    }
             }
-            
+            .font(.caption)
             
             Spacer()
             
