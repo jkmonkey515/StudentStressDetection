@@ -17,6 +17,10 @@ struct HomeView: View {
     @State private var pageAlertMessage = ""
     
     
+    @State private var aiResponse: Int = 0
+    @State private var showingConfirmation = false
+    
+    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
@@ -65,19 +69,34 @@ struct HomeView: View {
                     
                     Button {
                         Task {
-                            await doSubmit()
+                            await fetchAIResponse()
                         }
                     } label: {
                         CustomButtonView(title: "Submit")
                     }
-                    .alert("Then you", isPresented: $showingPageAlert) {
-                        Button("OK", role: .cancel, action: {
-                            cleanData()
-                        })
-                    } message: {
-                        Text(pageAlertMessage)
-                    }
+//                    .alert("Congrats", isPresented: $showingPageAlert) {
+//                        Button("OK", role: .cancel, action: {
+//                            cleanData()
+//                        })
+//                    } message: {
+//                        Text(pageAlertMessage)
+//                    }
                     .disabled(isLoading || note.isEmpty)
+                    .alert("Confirm!", isPresented: $showingConfirmation) {
+                        Button("Yes") {
+                            Task {
+                                await doSubmit()
+                            }
+                        }
+                        Button("No") {
+                            self.aiResponse = (selectedFeelingStatus?.index ?? 0) + 1
+                            Task {
+                                await doSubmit()
+                            }
+                        }
+                    } message: {
+                        Text("Your stress level is \(aiResponse). Is it correct?")
+                    }
                 }
                 .padding()
             }
@@ -90,22 +109,34 @@ struct HomeView: View {
         return selectedFeelingStatus == nil || note.isEmpty
     }
     
-    // MARK: - submit feedling
+    // MARK: - submit feeling
+    func fetchAIResponse() async {
+        hideKeyboard()
+        isLoading = true
+        if let aiResponse = await OpenAIManager.shared.sendRequest(leve: (selectedFeelingStatus?.index ?? 0) + 1, note: note) {
+            self.aiResponse = aiResponse
+        }
+        showingConfirmation = true
+        isLoading = false
+    }
     func doSubmit() async {
         hideKeyboard()
         isLoading = true
-        let aiResult = await OpenAIManager.shared.sendRequest(leve: (selectedFeelingStatus?.index ?? 0) + 1, note: note)
-        FirestoreManager.shared.submitDailyFeelings(level: (selectedFeelingStatus?.index ?? 0) + 1, note: note, levelByAI: aiResult)
+        FirestoreManager.shared.submitDailyFeelings(level: (selectedFeelingStatus?.index ?? 0) + 1, note: note, levelByAI: aiResponse)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isLoading = false
         }
+//        showingConfirmation = false
         showingPageAlert = true
         pageAlertMessage = "Great! Your daily feeling status is sucessfully updated."
+        
+        clearData()
     }
     
-    func cleanData() {
+    func clearData() {
         selectedFeelingStatus = nil
         note = ""
+        aiResponse = 0
     }
     
 }
