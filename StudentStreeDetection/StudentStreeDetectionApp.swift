@@ -15,6 +15,10 @@ struct StudentStreeDetectionApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var globalData = AppGlobalData()
     
+    init() {
+        UINavigationBar.appearance().overrideUserInterfaceStyle = .light
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

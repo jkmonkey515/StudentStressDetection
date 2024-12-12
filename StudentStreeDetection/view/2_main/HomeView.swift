@@ -21,7 +21,6 @@ struct HomeView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack {
-                    
                     HStack {
                         ForEach(FeelingStatus.allCases, id: \.self) { item in
                             Button {
@@ -53,6 +52,12 @@ struct HomeView: View {
                                 .stroke(Color.gray.opacity(0.8), lineWidth: 1)
                         )
                         .padding(.bottom)
+                        .submitLabel(.done)
+                        .onSubmit {
+                            Task {
+                                await doSubmit()
+                            }
+                        }
                     
                     if isLoading {
                         LoadingView().padding()
@@ -72,6 +77,7 @@ struct HomeView: View {
                     } message: {
                         Text(pageAlertMessage)
                     }
+                    .disabled(isLoading || note.isEmpty)
                 }
                 .padding()
             }
@@ -86,6 +92,7 @@ struct HomeView: View {
     
     // MARK: - submit feedling
     func doSubmit() async {
+        hideKeyboard()
         isLoading = true
         let aiResult = await OpenAIManager.shared.sendRequest(leve: (selectedFeelingStatus?.index ?? 0) + 1, note: note)
         FirestoreManager.shared.submitDailyFeelings(level: (selectedFeelingStatus?.index ?? 0) + 1, note: note, levelByAI: aiResult)
