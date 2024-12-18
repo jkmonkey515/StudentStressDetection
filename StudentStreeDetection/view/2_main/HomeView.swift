@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject private var globalData: AppGlobalData
 
-    @State private var selectedFeelingStatus: FeelingStatus? = nil
+    @State private var selectedFeelingStatusIndex: Int = -1
     @State private var note: String = ""
     @State private var isLoading = false
     @State private var showingPageAlert = false
@@ -29,14 +29,18 @@ struct HomeView: View {
                         ForEach(FeelingStatus.allCases, id: \.self) { item in
                             Button {
                                 withAnimation {
-                                    selectedFeelingStatus = item
+                                    if selectedFeelingStatusIndex == item.index {
+                                        selectedFeelingStatusIndex = -1
+                                    } else {
+                                        selectedFeelingStatusIndex = item.index
+                                    }
                                 }
                             } label: {
                                 Image(item.image)
                                     .resizable()
                                     .frame(maxWidth: .infinity)
                                     .aspectRatio(contentMode: .fit)
-                                    .padding(.all, selectedFeelingStatus == item ? 0 : 10)
+                                    .padding(.all, selectedFeelingStatusIndex == item.index ? 0 : 10)
                             }
                         }
                     }
@@ -55,13 +59,13 @@ struct HomeView: View {
                             RoundedRectangle(cornerRadius: 12, style: .continuous)
                                 .stroke(Color.gray.opacity(0.8), lineWidth: 1)
                         )
+                    
+                    Text("Tell me more about what is feeling good and what’s feeling hard today")
+                        .font(.callout)
+                        .foregroundStyle(Color.gray)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .multilineTextAlignment(.leading)
                         .padding(.bottom)
-                        .submitLabel(.done)
-                        .onSubmit {
-                            Task {
-                                await doSubmit()
-                            }
-                        }
                     
                     if isLoading {
                         LoadingView().padding()
@@ -74,24 +78,17 @@ struct HomeView: View {
                     } label: {
                         CustomButtonView(title: "Submit")
                     }
-//                    .alert("Congrats", isPresented: $showingPageAlert) {
-//                        Button("OK", role: .cancel, action: {
-//                            cleanData()
-//                        })
-//                    } message: {
-//                        Text(pageAlertMessage)
-//                    }
-                    .disabled(isLoading || note.isEmpty)
+                    .disabled(isLoading || isButtonDisabled)
                     .alert("Confirm!", isPresented: $showingConfirmation) {
                         Button("Yes") {
                             Task {
-                                await doSubmit()
+                                await doSubmit(agreed: true)
                             }
                         }
                         Button("No") {
-                            self.aiResponse = (selectedFeelingStatus?.index ?? 0) + 1
+                            self.aiResponse = selectedFeelingStatusIndex + 1
                             Task {
-                                await doSubmit()
+                                await doSubmit(agreed: false)
                             }
                         }
                     } message: {
@@ -100,33 +97,38 @@ struct HomeView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Home")
+            .navigationTitle("Untangle emotions")
         }
     }
     
     
     var isButtonDisabled: Bool {
-        return selectedFeelingStatus == nil || note.isEmpty
+        return selectedFeelingStatusIndex == -1 || note.isEmpty
     }
     
     // MARK: - submit feeling
     func fetchAIResponse() async {
         hideKeyboard()
+        if isButtonDisabled {
+            showingPageAlert = true
+            pageAlertMessage = "Please select one of emojis and add your notes."
+            return
+        }
         isLoading = true
-        if let aiResponse = await OpenAIManager.shared.sendRequest(leve: (selectedFeelingStatus?.index ?? 0) + 1, note: note) {
+        if let aiResponse = await OpenAIManager.shared.sendRequest(leve: selectedFeelingStatusIndex + 1, note: note) {
             self.aiResponse = aiResponse
         }
         showingConfirmation = true
         isLoading = false
     }
-    func doSubmit() async {
+    func doSubmit(agreed: Bool) async {
         hideKeyboard()
         isLoading = true
-        FirestoreManager.shared.submitDailyFeelings(level: (selectedFeelingStatus?.index ?? 0) + 1, note: note, levelByAI: aiResponse)
+        FirestoreManager.shared.submitDailyFeelings(level: selectedFeelingStatusIndex + 1, note: note, levelByAI: aiResponse)
+        await FirestoreManager.shared.increaseAICount(agreed: agreed)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isLoading = false
         }
-//        showingConfirmation = false
         showingPageAlert = true
         pageAlertMessage = "Great! Your daily feeling status is sucessfully updated."
         
@@ -134,7 +136,7 @@ struct HomeView: View {
     }
     
     func clearData() {
-        selectedFeelingStatus = nil
+        selectedFeelingStatusIndex = -1
         note = ""
         aiResponse = 0
     }

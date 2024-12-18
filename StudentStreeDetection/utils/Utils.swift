@@ -38,6 +38,7 @@ final class Utils {
             let endDate = calendar.date(byAdding: interval, value: 1, to: startDate)?.addingTimeInterval(-1) ?? startDate
             return StatsModel(startDate: startDate, endDate: endDate, listData: feelings)
         }
+        .sorted { $0.startDate < $1.startDate }
     }
     
     // MARK: - Daily Local Notification as a reminder

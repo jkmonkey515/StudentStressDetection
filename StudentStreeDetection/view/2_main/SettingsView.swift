@@ -14,7 +14,27 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack(alignment: .leading) {
+                NavigationLink {
+                    ScrollView {
+                        Text(FAQ_TEXT)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .multilineTextAlignment(.leading)
+                            .padding()
+                    }
+                    .navigationTitle("FAQ")
+                } label: {
+                    HStack {
+                        Image(systemName: "info.circle")
+                        Text("FAQ")
+                            .font(.title2)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                    .foregroundStyle(.black)
+                    .tint(.black)
+                }
+                
                 Toggle("Daily Notification", isOn: $isDailyNotification)
                     .padding()
                 

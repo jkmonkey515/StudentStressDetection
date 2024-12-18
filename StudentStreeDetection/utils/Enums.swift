@@ -35,7 +35,18 @@ enum FeelingStatus: String, Codable, CaseIterable {
     case grin
     
     var title: String {
-        rawValue.capitalized
+        switch self {
+        case .cry:
+            "Very Sad"
+        case .frowning:
+            "Sad"
+        case .neutral:
+            "Neutral"
+        case .relieved:
+            "Happy"
+        case .grin:
+            "Very Happy"
+        }
     }
     var index: Int {
         FeelingStatus.allCases.firstIndex(of: self) ?? 0

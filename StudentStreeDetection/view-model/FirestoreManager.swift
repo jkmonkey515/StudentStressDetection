@@ -15,15 +15,13 @@ final class FirestoreManager: ObservableObject {
     init() {}
     
     let db = Firestore.firestore()
-    let usersCollectionName = "users"
-    let dailyFeelingCollectionName = "daily_feelings"
     
     let refUsers = Firestore.firestore().collection("users")
     let refDailyFeelings = Firestore.firestore().collection("daily_feelings")
     
     // MARK: - User
     func createUser(uid: String, name: String, photo: String) {
-        db.collection(usersCollectionName).document("user_\(uid)").setData([
+        refUsers.document("user_\(uid)").setData([
             "uid": uid,
             "name": name,
             "photo": photo,
@@ -51,6 +49,22 @@ final class FirestoreManager: ObservableObject {
         } else {
             createUser(uid: user.uid, name: newName, photo: profileUrl)
             return true
+        }
+    }
+    func increaseAICount(agreed: Bool) async {
+        let uid = UserData.shared.getUser().uid
+        do {
+            if agreed {
+                try await refUsers.document("user_\(uid)").updateData([
+                    "countOfAgreeWithAI": FieldValue.increment(Int64(1))
+                ])
+            } else {
+                try await refUsers.document("user_\(uid)").updateData([
+                    "countOfDisagreeWithAI": FieldValue.increment(Int64(1))
+                ])
+            }
+        } catch {
+            print(error.localizedDescription)
         }
     }
     
@@ -82,7 +96,7 @@ final class FirestoreManager: ObservableObject {
             // delete user data
             try await refUsers.document("user_\(uid)").delete()
             // delete user tips
-            let list = try await db.collection("tips")
+            let list = try await refDailyFeelings
                 .whereField("uid", isEqualTo: uid)
                 .getDocuments().documents
             for doc in list {
@@ -160,9 +174,9 @@ final class FirestoreManager: ObservableObject {
     }
     
     // MARK: - remove
-    func removeTip(_ item: DailyFeelingModel) async {
+    func removeDailyFeeling(_ item: DailyFeelingModel) async {
         do {
-            try await db.collection(dailyFeelingCollectionName).document(item.docId).delete()
+            try await refDailyFeelings.document(item.docId).delete()
         } catch {
             print(error.localizedDescription)
         }

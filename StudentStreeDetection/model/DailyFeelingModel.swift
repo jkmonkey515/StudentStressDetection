@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DailyFeelingModel: Codable {
+struct DailyFeelingModel: Codable, Identifiable {
     var docId: String
     var uid: String
     var level: Int
