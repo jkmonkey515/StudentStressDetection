@@ -17,6 +17,23 @@ final class Utils {
     static let shared = Utils()
     init() {}
     
+    func getStressLevelText(from value: Double) -> String {
+        var result = ""
+        if value < 0 {
+            result = "N/A"
+        } else if value > 0 && value <= 1 {
+            result = "very\nhappy"
+        } else if value > 1 && value <= 2 {
+            result = "happy"
+        } else if value > 2 && value <= 3 {
+            result = "neutral"
+        } else if value > 3 && value <= 4 {
+            result = "sad"
+        } else if value > 4 {
+            result = "very\nsad"
+        }
+        return result
+    }
     // Helper function to group DailyFeelings by weekly, monthly, and yearly
     func groupDataByInterval(data: [DailyFeelingModel], type: StatsDateType = .weekly) -> [StatsModel] {
         var interval: Calendar.Component = .weekOfYear

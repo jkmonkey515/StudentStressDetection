@@ -24,10 +24,6 @@ struct StatisticsView: View {
                     
                     CustomBarChartView(data: statsData, tabMode: currentTab)
                     
-                    Text("Very sad, sad, neutral, happy, very happy")
-                        .font(.system(size: 10))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
                     Text("Feeling entered by you")
                     
                     Divider()

@@ -176,33 +176,9 @@ struct CustomBarChartView: View {
     }
     
     func statusText(by value: Double) -> some View {
-        if value < 0 {
-            return Text("N/A")
-                .font(.system(size: 8))
-                .foregroundColor(.blue)
-        } else if value > 0 && value <= 1 {
-            return Text("very\nhappy")
-                .font(.system(size: 8))
-                .foregroundColor(.blue)
-        } else if value > 1 && value <= 2 {
-            return Text("happy")
-                .font(.system(size: 8))
-                .foregroundColor(.blue)
-        } else if value > 2 && value <= 3 {
-            return Text("neutral")
-                .font(.system(size: 8))
-                .foregroundColor(.blue)
-        } else if value > 3 && value <= 4 {
-            return Text("sad")
-                .font(.system(size: 8))
-                .foregroundColor(.blue)
-        } else if value > 4 {
-            return Text("very\nsad")
-                .font(.system(size: 8))
-                .foregroundColor(.blue)
-        } else {
-            return EmptyView()
-        }
+        Text(Utils.shared.getStressLevelText(from: value))
+            .font(.system(size: 8))
+            .foregroundColor(.blue)
     }
 }
 

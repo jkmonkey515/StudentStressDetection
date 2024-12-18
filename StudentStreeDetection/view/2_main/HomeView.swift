@@ -92,7 +92,7 @@ struct HomeView: View {
                             }
                         }
                     } message: {
-                        Text("Your stress level is \(aiResponse). Is it correct?")
+                        Text("Your stress level is \(Utils.shared.getStressLevelText(from: Double(aiResponse))). Is it correct?")
                     }
                 }
                 .padding()
