@@ -145,7 +145,12 @@ struct CustomBarChartView: View {
         HStack(spacing: 4) {
             VStack {
                 if chartMode == .user {
-                    // no texts for y axis
+                    ForEach(FeelingStatus.allCases.reversed(), id: \.self) { item in
+                        Text(item.title)
+                            .font(.system(size: 12))
+                            .multilineTextAlignment(.trailing)
+                        Spacer()
+                    }
                 } else {
                     ForEach(FeelingStatus.allCases, id: \.self) { item in
                         Image(item.image)

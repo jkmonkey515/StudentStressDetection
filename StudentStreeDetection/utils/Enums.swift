@@ -37,7 +37,7 @@ enum FeelingStatus: String, Codable, CaseIterable {
     var title: String {
         switch self {
         case .cry:
-            "Very Sad"
+            "Very\nsad"
         case .frowning:
             "Sad"
         case .neutral:
@@ -45,7 +45,7 @@ enum FeelingStatus: String, Codable, CaseIterable {
         case .relieved:
             "Happy"
         case .grin:
-            "Very Happy"
+            "Very\nhappy"
         }
     }
     var index: Int {
