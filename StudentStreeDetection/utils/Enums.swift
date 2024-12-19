@@ -28,11 +28,12 @@ enum AuthPage: String, Codable {
 }
 
 enum FeelingStatus: String, Codable, CaseIterable {
-    case cry
-    case frowning
-    case neutral
-    case relieved
     case grin
+    case relieved
+    case neutral
+    case frowning
+    case cry
+    
     
     var title: String {
         switch self {

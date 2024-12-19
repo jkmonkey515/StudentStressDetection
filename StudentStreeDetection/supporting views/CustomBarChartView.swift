@@ -118,7 +118,7 @@ struct CustomBarChartView: View {
                 let totalLevelByAI = sameDayData.reduce(0) { $0 + $1.levelByAI }
                 let count = sameDayData.count
                 let averageLevel = totalLevel / count
-                let averageLevelByAI = 5 - totalLevelByAI / count
+                let averageLevelByAI = totalLevelByAI / count
 
                 dailyData.append(
                     DailyFeelingModel(
@@ -176,7 +176,7 @@ struct CustomBarChartView: View {
     private func calculateAverageLevelByAI(for data: [DailyFeelingModel]) -> Double {
         guard !data.isEmpty else { return 0 }
         let total = data.map { $0.levelByAI }.reduce(0, +)
-        return 5 - Double(total) / Double(data.count)
+        return Double(total) / Double(data.count)
     }
     
     func statusText(by value: Double) -> some View {
