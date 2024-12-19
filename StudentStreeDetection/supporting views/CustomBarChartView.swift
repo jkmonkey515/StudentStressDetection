@@ -16,7 +16,6 @@ struct CustomBarChartView: View {
     var tabMode: StatsDateType = .weekly
     var barColor: Color = Color.lightPurple
     
-    private let yAxisValues = ["high", "4", "3", "2", "low"]
     private let barTextHeight: CGFloat = 25
     private var barMaxHeight: CGFloat {
         ChartViewHeight - barTextHeight * 2
@@ -119,7 +118,7 @@ struct CustomBarChartView: View {
                 let totalLevelByAI = sameDayData.reduce(0) { $0 + $1.levelByAI }
                 let count = sameDayData.count
                 let averageLevel = totalLevel / count
-                let averageLevelByAI = totalLevelByAI / count
+                let averageLevelByAI = 5 - totalLevelByAI / count
 
                 dailyData.append(
                     DailyFeelingModel(
@@ -152,7 +151,7 @@ struct CustomBarChartView: View {
                         Spacer()
                     }
                 } else {
-                    ForEach(FeelingStatus.allCases, id: \.self) { item in
+                    ForEach(FeelingStatus.allCases.reversed(), id: \.self) { item in
                         Image(item.image)
                             .resizable()
                             .frame(width: 24, height: 24)
@@ -177,7 +176,7 @@ struct CustomBarChartView: View {
     private func calculateAverageLevelByAI(for data: [DailyFeelingModel]) -> Double {
         guard !data.isEmpty else { return 0 }
         let total = data.map { $0.levelByAI }.reduce(0, +)
-        return Double(total) / Double(data.count)
+        return 5 - Double(total) / Double(data.count)
     }
     
     func statusText(by value: Double) -> some View {

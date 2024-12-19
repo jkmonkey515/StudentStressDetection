@@ -22,15 +22,15 @@ final class Utils {
         if value < 0 {
             result = "N/A"
         } else if value > 0 && value <= 1 {
-            result = "very\nhappy"
+            result = "very\nsad"
         } else if value > 1 && value <= 2 {
-            result = "happy"
+            result = "sad"
         } else if value > 2 && value <= 3 {
             result = "neutral"
         } else if value > 3 && value <= 4 {
-            result = "sad"
+            result = "happy"
         } else if value > 4 {
-            result = "very\nsad"
+            result = "very\nhappy"
         }
         return result
     }
