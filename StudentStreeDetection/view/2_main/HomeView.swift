@@ -117,8 +117,12 @@ struct HomeView: View {
         isLoading = true
         if let aiResponse = await OpenAIManager.shared.sendRequest(leve: selectedFeelingStatusIndex + 1, note: note) {
             self.aiResponse = aiResponse
+            self.showingConfirmation = true
+        } else {
+            showingPageAlert = true
+            pageAlertMessage = "We didn't get the response from AI. Please try again."
         }
-        showingConfirmation = true
+        
         isLoading = false
     }
     func doSubmit(agreed: Bool) async {
