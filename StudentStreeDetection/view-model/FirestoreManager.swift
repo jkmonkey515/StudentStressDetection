@@ -25,7 +25,8 @@ final class FirestoreManager: ObservableObject {
             "uid": uid,
             "name": name,
             "photo": photo,
-            "hasMembership": false
+            "hasMembership": false,
+            "createdAt": Date()
         ], merge: true) { err in
             if let err = err {
                 print("Error writing document: \(err)")

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-let OPENAI_API_KEY = "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"
+let OPENAI_API_KEY = "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"
 let OPENAI_ORGANIZATION = "UntangleEmotions"
 let OPENAI_ORGANIZATION_ID = "org-AEoQioBZWjPGpbTYqzzIkFAv"
 
